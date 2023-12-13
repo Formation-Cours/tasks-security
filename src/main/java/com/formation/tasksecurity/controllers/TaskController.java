@@ -26,14 +26,8 @@ public class TaskController {
 
     @GetMapping
     public List<TaskEntity> findAll(@AuthenticationPrincipal MyUserDetails userDetails) {
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-
-        if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            log.info("Je suis un admin");
-            return taskService.findAll();
-        }
-        log.info("Je ne suis pas un admin");
-        return taskService.findAll(userDetails.getUser());
+        log.info("userDetails: {}", userDetails.getAuthorities());
+        return taskService.getTasksBasedOnRole(userDetails);
     }
 
     @PostMapping

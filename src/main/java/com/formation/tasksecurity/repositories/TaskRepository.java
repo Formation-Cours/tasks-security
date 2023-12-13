@@ -24,4 +24,5 @@ public interface TaskRepository extends JpaRepository<TaskEntity, UUID> {
             @Param("done") boolean done,
             @Param("userId") Long userId);
 
+    List<TaskEntity> findByUserId(Long userId);
 }
