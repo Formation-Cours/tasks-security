@@ -1,0 +1,15 @@
+meta {
+  name: FindAll
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/tasks
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: Bearer eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MDI0NzU2NTYsImV4cCI6MTcwMjQ3NTk1NiwibGFzdE5hbWUiOiJNSUNIQVVYIiwiZmlyc3ROYW1lIjoic2FtdWVsIiwiZXhwaXJhdGlvbiI6MTcwMjQ3NTk1NjEzMywiZW1haWwiOiJzYW1Ac2FtLmZyIiwic3ViamVjdCI6InNhbUBzYW0uZnIifQ.Xi5qEyf75ACQ-D2d8wCdM9u2irLmWSOdPKc6ajHMSHsZulj85Pb1AhljZSPxMJIq
+}
