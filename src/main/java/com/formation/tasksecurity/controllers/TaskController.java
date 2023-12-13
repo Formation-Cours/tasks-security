@@ -32,7 +32,6 @@ public class TaskController {
 
     @PostMapping
     public TaskEntity save(@Valid @RequestBody TaskEntity taskEntity, @AuthenticationPrincipal MyUserDetails userDetails) {
-        taskEntity.setUser(userDetails.getUser());
-        return taskService.save(taskEntity);
+        return taskService.save(taskEntity, userDetails);
     }
 }

@@ -4,6 +4,7 @@ import com.formation.tasksecurity.configurations.MyUserDetails;
 import com.formation.tasksecurity.entities.TaskEntity;
 import com.formation.tasksecurity.entities.UserEntity;
 import com.formation.tasksecurity.repositories.TaskRepository;
+import com.formation.tasksecurity.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,11 @@ import java.util.UUID;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
     }
 
     public List<TaskEntity> findAll() {
@@ -33,16 +36,25 @@ public class TaskService {
         return this.taskRepository.findById(id);
     }
 
-    // TODO: à modifier
-    public TaskEntity save(TaskEntity taskEntity) {
+    // Méthode pour sauvegarder une tâche
+    // Elle ne fait qu'une requête SQL, mais nous perdons l'abstraction de Spring Data JPA
+//    public TaskEntity save(TaskEntity taskEntity, MyUserDetails userDetails) {
 //        this.taskRepository.saveByUserID(
 //                UUID.randomUUID(),
 //                taskEntity.getTitle(),
 //                taskEntity.getDescription(),
 //                taskEntity.isDone(),
-//                taskEntity.getUser().getId()
+//                userDetails.getUser().getId()
 //        );
-        return taskEntity;
+//        return taskEntity;
+//    }
+
+    // Méthode pour sauvegarder une tâche
+    // Elle fait 2 requêtes SQL, mais nous gardons l'abstraction de Spring Data JPA
+    public TaskEntity save(TaskEntity taskEntity, MyUserDetails userDetails) {
+        UserEntity userEntity = this.userRepository.findById(userDetails.getUser().getId()).orElseThrow();
+        taskEntity.setUser(userEntity);
+        return this.taskRepository.save(taskEntity);
     }
 
     // TODO: à modifier

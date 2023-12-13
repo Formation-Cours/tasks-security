@@ -34,14 +34,14 @@ public class TaskEntity {
     @Column(nullable = false)
     private boolean done;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private UserEntity user;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @Column(updatable = true, insertable = false)
+    @Column()
     @LastModifiedDate
     private LocalDateTime updatedAt;
 }
