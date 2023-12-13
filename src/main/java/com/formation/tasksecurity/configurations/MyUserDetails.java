@@ -1,7 +1,6 @@
 package com.formation.tasksecurity.configurations;
 
 import com.formation.tasksecurity.entities.UserEntity;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +22,10 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + this.user.getRole().name()));
+        return List.of(
+                new SimpleGrantedAuthority("ROLE_" + this.user.getRole().name()),
+                new SimpleGrantedAuthority("ROLE_ADMIN")
+        );
     }
 
     @Override

@@ -1,15 +1,22 @@
 meta {
-  name: FindAll
+  name: Save
   type: http
-  seq: 1
+  seq: 2
 }
 
-get {
+post {
   url: {{base_url}}/tasks
-  body: none
+  body: json
   auth: bearer
 }
 
 auth:bearer {
   token: eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MDI0OTE0NzYsImV4cCI6MTcwMjQ5MzI3Niwic3ViIjoic2FtQHNhbS5mciIsImVtYWlsIjoic2FtQHNhbS5mciIsImxhc3ROYW1lIjoiTUlDSEFVWCIsImZpcnN0TmFtZSI6InNhbXVlbCJ9.g4Mne4I5gAAJmbmTtuQownaN8PLpD87zx4qBqtmH8eCAJ73URxE8ZXST_1VUK2Zn
+}
+
+body:json {
+  {
+    "title": "task 3",
+    "description": "description task 3"
+  }
 }

@@ -1,6 +1,7 @@
 package com.formation.tasksecurity.services;
 
 import com.formation.tasksecurity.entities.TaskEntity;
+import com.formation.tasksecurity.entities.UserEntity;
 import com.formation.tasksecurity.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +22,24 @@ public class TaskService {
         return this.taskRepository.findAll();
     }
 
+    public List<TaskEntity> findAll(UserEntity userEntity) {
+        return this.taskRepository.findAllByUser(userEntity);
+    }
+
     public Optional<TaskEntity> findById(UUID id) {
         return this.taskRepository.findById(id);
     }
 
     // TODO: à modifier
     public TaskEntity save(TaskEntity taskEntity) {
-        return this.taskRepository.save(taskEntity);
+        this.taskRepository.saveByUserID(
+                UUID.randomUUID(),
+                taskEntity.getTitle(),
+                taskEntity.getDescription(),
+                taskEntity.isDone(),
+                taskEntity.getUser().getId()
+        );
+        return taskEntity;
     }
 
     // TODO: à modifier

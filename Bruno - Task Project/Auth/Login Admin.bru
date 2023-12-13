@@ -1,19 +1,21 @@
 meta {
-  name: Register
+  name: Login Admin
   type: http
-  seq: 1
+  seq: 3
 }
 
 post {
-  url: {{base_url}}/register
+  url: {{base_url}}/login
   body: json
   auth: none
 }
 
+auth:bearer {
+  token: samsamsam
+}
+
 body:json {
   {
-    "firstName": "samuel",
-    "lastName": "MICHAUX",
     "email": "sam@sam.com",
     "password": "samsamsam"
   }

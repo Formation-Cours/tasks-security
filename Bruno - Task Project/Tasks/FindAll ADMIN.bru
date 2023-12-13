@@ -1,0 +1,15 @@
+meta {
+  name: FindAll ADMIN
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/tasks
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MDI0OTE4MjksImV4cCI6MTcwMjQ5MzYyOSwic3ViIjoic2FtQHNhbS5jb20iLCJlbWFpbCI6InNhbUBzYW0uY29tIiwibGFzdE5hbWUiOiJNSUNIQVVYIiwiZmlyc3ROYW1lIjoic2FtdWVsIn0.psvZfD9CKc4te-_I85wKFymaN8Ij-hdlz5kmzG6ebZEqv-OGahWTqDSxNBMVL3hc
+}
