@@ -1,0 +1,23 @@
+meta {
+  name: Update me
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{base_url}}/users/me
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_user}}
+}
+
+body:json {
+  {
+    "email": "samuel.michaux@gmail.com",
+    "firstName": "samuel",
+    "lastName": "michaux"
+  }
+}

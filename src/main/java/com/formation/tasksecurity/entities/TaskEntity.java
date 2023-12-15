@@ -38,7 +38,7 @@ public class TaskEntity {
     @Column(nullable = false)
     private boolean done;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private UserEntity user;
 
     @Column(nullable = false, updatable = false)

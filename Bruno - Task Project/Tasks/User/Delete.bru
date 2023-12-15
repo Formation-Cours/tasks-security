@@ -4,23 +4,12 @@ meta {
   seq: 5
 }
 
-put {
+delete {
   url: {{base_url}}/tasks/174b0690-5086-492d-9a31-22384ae0f54c
-  body: json
+  body: none
   auth: bearer
 }
 
 auth:bearer {
   token: {{token_user}}
-}
-
-body:json {
-    {
-      "title": "task 2 à Sam",
-      "description": "description task 2",
-      "done": true,
-      "user": {
-        "email": "sam@sam.fr"
-      }
-    }
 }

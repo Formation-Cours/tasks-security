@@ -1,0 +1,19 @@
+meta {
+  name: Find Email other
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/users/other?email=sam@sam.fr
+  body: none
+  auth: bearer
+}
+
+query {
+  email: sam@sam.fr
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

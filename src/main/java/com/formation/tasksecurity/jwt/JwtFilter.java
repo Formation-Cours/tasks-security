@@ -2,6 +2,7 @@ package com.formation.tasksecurity.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.formation.tasksecurity.configurations.MyUserDetailsService;
+import com.formation.tasksecurity.exceptions.ResponseHandler;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -33,12 +34,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("Je suis dans le filtre JwtFilter");
-
         try {
             String token = request.getHeader("Authorization");
-
-            log.info("token {}", token);
 
             if (token != null && token.startsWith("Bearer ")) {
                 token = token.substring(7);
@@ -54,19 +51,17 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 setAuthentication(username);
 
-            } else {
-                log.info("Token absent");
             }
 
 
         } catch (ExpiredJwtException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            ResponseHandler responseHandler = new ResponseHandler();
+            responseHandler.status = HttpServletResponse.SC_UNAUTHORIZED;
+            responseHandler.errors = List.of(e.getMessage());
             response.setContentType("application/json");
-            response.getWriter().write(objectMapper.writeValueAsString(Map.of("error", e.getMessage())));
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.setContentType("application/json");
-            response.getWriter().write(objectMapper.writeValueAsString(Map.of("error", e.getMessage())));
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(responseHandler));
         }
 
         filterChain.doFilter(request, response);

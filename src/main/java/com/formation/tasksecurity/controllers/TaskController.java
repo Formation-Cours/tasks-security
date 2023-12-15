@@ -3,19 +3,13 @@ package com.formation.tasksecurity.controllers;
 import com.formation.tasksecurity.configurations.MyUserDetails;
 import com.formation.tasksecurity.dtos.TaskDto;
 import com.formation.tasksecurity.dtos.TaskRequestDto;
-import com.formation.tasksecurity.entities.TaskEntity;
-import com.formation.tasksecurity.repositories.UserRepository;
 import com.formation.tasksecurity.services.TaskService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 

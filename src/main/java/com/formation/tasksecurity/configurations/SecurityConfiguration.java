@@ -1,5 +1,7 @@
 package com.formation.tasksecurity.configurations;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.formation.tasksecurity.exceptions.ResponseHandler;
 import com.formation.tasksecurity.jwt.JwtFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
@@ -15,14 +17,19 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     private final JwtFilter jwtFilter;
 
-    public SecurityConfiguration(JwtFilter jwtFilter) {
+    private final ObjectMapper objectMapper;
+
+    public SecurityConfiguration(JwtFilter jwtFilter, ObjectMapper objectMapper) {
         this.jwtFilter = jwtFilter;
+        this.objectMapper = objectMapper;
     }
 
     @Bean
@@ -33,6 +40,7 @@ public class SecurityConfiguration {
                         requests
                                 .requestMatchers(HttpMethod.POST, "/register").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                                .requestMatchers( "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
@@ -44,13 +52,19 @@ public class SecurityConfiguration {
                                 .authenticationEntryPoint((req, resp, excep) -> {
                                     resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                                     resp.setContentType("application/json");
-                                    resp.getWriter().write("{ \"message\": \"" + excep.getMessage() + "\" }");
+                                    ResponseHandler responseHandler = new ResponseHandler();
+                                    responseHandler.status = HttpServletResponse.SC_UNAUTHORIZED;
+                                    responseHandler.errors = List.of(excep.getMessage());
+                                    resp.getWriter().write(objectMapper.writeValueAsString(responseHandler));
                                 })
-                                .accessDeniedHandler((req, resp, excep) -> {
-                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType("application/json");
-                                    resp.getWriter().write("{ \"message\": \"" + excep.getMessage() + "\" }");
-                                })
+//                                .accessDeniedHandler((req, resp, excep) -> {
+//                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+//                                    resp.setContentType("application/json");
+//                                    ResponseHandlerException responseHandlerException = new ResponseHandlerException();
+//                                    responseHandlerException.status = HttpServletResponse.SC_FORBIDDEN;
+//                                    responseHandlerException.errors = List.of(excep.getMessage());
+//                                    resp.getWriter().write(objectMapper.writeValueAsString(responseHandlerException));
+//                                })
                 )
                 .build();
     }

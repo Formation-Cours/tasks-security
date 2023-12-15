@@ -15,4 +15,31 @@ public class UserMapper {
 //                null
 //        );
 //    }
+
+    public static UserByAdminDto userEntityToUserByAdminDtoMapper(UserEntity userEntity) {
+        return new UserByAdminDto(
+                userEntity.getId(),
+                userEntity.getFirstName(),
+                userEntity.getLastName(),
+                userEntity.getEmail(),
+                userEntity.getRole()
+        );
+    }
+
+    public static UserDto userEntityToUserDtoMapper(UserEntity userEntity) {
+        return new UserDto(
+                userEntity.getEmail(),
+                userEntity.getFirstName(),
+                userEntity.getLastName()
+        );
+    }
+
+    public static UserByMeDto userEntityToUserByMeDtoMapper(UserEntity userEntity) {
+        return new UserByMeDto(
+                userEntity.getFirstName(),
+                userEntity.getLastName(),
+                userEntity.getEmail(),
+                userEntity.getRole()
+        );
+    }
 }

@@ -24,4 +24,6 @@ public interface TaskRepository extends JpaRepository<TaskEntity, UUID> {
 
     @Query(value = "SELECT t FROM TaskEntity t WHERE t.id = :id AND t.user.email = ?#{principal.username}")
     Optional<TaskEntity> findByIdByUser(@Param("id") UUID id);
+
+    void deleteAllByUserId(Long id);
 }
