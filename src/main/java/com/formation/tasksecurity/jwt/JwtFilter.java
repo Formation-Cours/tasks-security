@@ -62,6 +62,7 @@ public class JwtFilter extends OncePerRequestFilter {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(responseHandler));
+            return;
         }
 
         filterChain.doFilter(request, response);
