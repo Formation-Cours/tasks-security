@@ -1,0 +1,23 @@
+meta {
+  name: Save
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/tasks
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_user}}
+}
+
+body:json {
+  {
+    "title": "tas",
+    "description": "description task 3",
+    "done": false
+  }
+}

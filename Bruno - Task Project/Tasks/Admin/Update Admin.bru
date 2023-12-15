@@ -1,0 +1,28 @@
+meta {
+  name: Update Admin
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/tasks/00e9a69d-98cf-4ac9-8153-3fc6abfc3b0e
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+    {
+      "title": "Nouvelle tâche à faire",
+      "description": "Toto doit aller à la plage",
+      "done": false,
+      "user": {
+        "email": "toto@toto.com",
+        "firstName": "samuel",
+        "lastName": "MICHAUX"
+      }
+    }
+}

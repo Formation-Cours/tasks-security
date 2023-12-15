@@ -1,0 +1,22 @@
+meta {
+  name: Save Admin
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/tasks
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "title": "task 2",
+    "description": "description task 2"
+  }
+}

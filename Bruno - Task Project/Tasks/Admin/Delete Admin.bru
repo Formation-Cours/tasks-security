@@ -1,0 +1,15 @@
+meta {
+  name: Delete Admin
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base_url}}/tasks/174b0690-5086-492d-9a31-22384ae0f54c
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_user}}
+}

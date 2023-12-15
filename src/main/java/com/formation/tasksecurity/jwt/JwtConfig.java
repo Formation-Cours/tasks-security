@@ -23,7 +23,7 @@ public class JwtConfig {
     @Value("${jwt.secret:samsamsam}")
     private String secret;
 
-    @Value("${jwt.expiration:#{30*60*1000}}")
+    @Value("${jwt.expiration:#{24*60*60*1000}}")
     private long expirationTime;
 
     private SecretKey key;

@@ -1,0 +1,15 @@
+meta {
+  name: FindByID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/tasks/c577919a-c0e5-472b-82fe-fef3260445d0
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_user}}
+}
